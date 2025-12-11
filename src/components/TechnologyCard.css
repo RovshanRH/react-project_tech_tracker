@@ -1,0 +1,60 @@
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --background-color-light: #F5F5F5;
+    --background-color-azure: rgb(230, 250, 252);
+    --background-color-black: #0B555B;
+    --light-green: rgb(156, 252, 151);
+    --dark-green: #086303;
+    --sage-green: rgb(107, 163, 104);
+    --dark-sage-green: #304C2F;
+    --olive-leaf: rgb(81, 91, 58);
+    --light-olive-leaf: #F6F7F3;
+    --charcoal-brown: rgb(53, 61, 47);
+    --light-charcoal-brown: #D4E6B5;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.technology-card {
+    background-color: var(--background-color-azure);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* max-width: 200px; */
+    height: auto;
+}
+.technology-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.KeyId {
+    font-size: 0.8em;
+    color: var(--charcoal-brown);
+    margin-bottom: 5px;
+}
+
+.technology-name {
+    color: var(--dark-green);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.description {
+    color: var(--black);
+    margin-top: 10px;
+    font-size: 0.95em;
+}
+
+.status {
+    color: var(--sage-green);
+    font-size: 0.9em;
+    font-style: italic;
+    font-weight: lighter;
+}

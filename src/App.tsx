@@ -1,19 +1,30 @@
-import './App.css';
-import Greeting from './Greeting';
-import UserCard from './UserCard';
-import TaskList from './TaskList';
+// import './App.css';
+import TechnologyCard from "./components/TechnologyCard.tsx";
 
 function App() {
+  const technologies = [
+    {
+      id: 1, title: 'React Components', description: 'Изучение базовых компонентов',
+      status: 'completed'
+    },
+    {
+      id: 2, title: 'JSX Syntax', description: 'Освоение синтаксиса JSX', status:
+        'in-progress'
+    },
+    {
+      id: 3, title: 'State Management', description: 'Работа с состоянием компонентов', status: 'not - started' }
+    ];
   return (
     <div className="App">
-      <Greeting />
-      <UserCard 
-        name='ROVIAN'
-        role='Frontend Developer'
-        avatarUrl='https://avatars.githubusercontent.com/u/9919?s=280&v=4'
-        isOnline={true}
-      />
-      <TaskList />
+      <h1>Technology Tracker</h1>
+      {technologies.map((tech) => (
+        <TechnologyCard
+          key={tech.id}
+          title={tech.title}
+          description={tech.description}
+          status={tech.status}
+        />
+      ))}
     </div>
   );
 }
