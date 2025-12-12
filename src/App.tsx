@@ -1,5 +1,6 @@
-// import './App.css';
+import './App.css';
 import TechnologyCard from "./components/TechnologyCard.tsx";
+import ProgressHeader from "./components/ProgressHeader.tsx";
 
 function App() {
   const technologies = [
@@ -12,11 +13,14 @@ function App() {
         'in-progress'
     },
     {
-      id: 3, title: 'State Management', description: 'Работа с состоянием компонентов', status: 'not - started' }
+      id: 3, title: 'State Management', description: 'Работа с состоянием компонентов', status: 'not-started' }
     ];
   return (
+
     <div className="App">
       <h1>Technology Tracker</h1>
+      <ProgressHeader AllCount={technologies.length} FinishedCount={technologies.filter(tech => tech.status === 'completed').length} />
+      
       {technologies.map((tech) => (
         <TechnologyCard
           key={tech.id}

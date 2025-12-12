@@ -1,0 +1,301 @@
+.progress-header {
+    display: flex;
+    justify-content: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.progress-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.08),
+        0 2px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.progress-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.12),
+        0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.progress-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.progress-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #0B555B, #3498db);
+    border-radius: 2px;
+}
+
+.dynamic-progress {
+    --progress: 0;
+    --size: 180px;
+    --color: #0B555B;
+    --completed-color: #086303;
+    --remaining-color: #f0f3f5;
+    --glow-color: rgba(11, 85, 91, 0.3);
+    
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: 
+        radial-gradient(
+            circle at 50% 50%,
+            white 60%,
+            rgba(255, 255, 255, 0.9) 70%,
+            transparent 71%
+        ),
+        conic-gradient(
+            from 0deg,
+            var(--completed-color) 0%,
+            var(--completed-color) calc(var(--progress) * 1%),
+            var(--remaining-color) calc(var(--progress) * 1%),
+            var(--remaining-color) 100%
+        );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    position: relative;
+    transition: --progress 0.05s linear;
+    /* animation: float 3s ease-in-out infinite; */
+    animation: none;
+}
+
+/* Плавная анимация плавающего эффекта */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Свечение при изменении прогресса */
+.dynamic-progress::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: var(--glow-color);
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.dynamic-progress:focus-within::before,
+.dynamic-progress:hover::before {
+    opacity: 0.6;
+}
+
+/* Внутренняя тень для глубины */
+.dynamic-progress::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    box-shadow: 
+        inset 0 4px 8px rgba(0, 0, 0, 0.1),
+        inset 0 -4px 8px rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+.progress-text {
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.finished-count {
+    color: var(--completed-color);
+    text-shadow: 0 2px 4px rgba(8, 99, 3, 0.1);
+    transition: color 0.3s ease;
+}
+
+.separator {
+    color: #95a5a6;
+    font-weight: 400;
+}
+
+.total-count {
+    color: #34495e;
+}
+
+.progress-percentage {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #7f8c8d;
+    background: rgba(236, 240, 241, 0.7);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-top: 4px;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        background: rgba(236, 240, 241, 0.7);
+    }
+    50% {
+        background: rgba(236, 240, 241, 0.9);
+    }
+}
+
+.progress-subtitle {
+    color: #7f8c8d;
+    font-size: 1rem;
+    margin: 16px 0 24px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.progress-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: rgba(236, 240, 241, 0.5);
+    transition: all 0.3s ease;
+}
+
+.indicator:hover {
+    background: rgba(236, 240, 241, 0.8);
+    transform: translateY(-2px);
+}
+
+.indicator.completed {
+    color: var(--completed-color);
+}
+
+.indicator.remaining {
+    color: #e74c3c;
+}
+
+.indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.indicator.completed .indicator-dot {
+    background: var(--completed-color);
+    box-shadow: 0 0 8px rgba(8, 99, 3, 0.3);
+}
+
+.indicator.remaining .indicator-dot {
+    background: #e74c3c;
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+}
+
+.indicator:hover .indicator-dot {
+    transform: scale(1.2);
+}
+
+/* Эффект частиц при достижении 100% */
+@keyframes celebrate {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 50px rgba(46, 204, 113, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.dynamic-progress[aria-valuenow="100"] {
+    animation: 
+        /* float 3s ease-in-out infinite, */
+        celebrate 2s ease-in-out;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .dynamic-progress {
+        --size: 150px;
+    }
+    
+    .progress-text {
+        font-size: 2rem;
+    }
+    
+    .progress-indicators {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .progress-card {
+        padding: 24px;
+    }
+}
+
+/* Плавный скролл-эффект при появлении */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.progress-card {
+    animation: fadeInUp 0.8s ease-out;
+}

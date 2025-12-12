@@ -1,25 +1,4 @@
-:root {
-    --white: #FFFFFF;
-    --black: #000000;
-    --background-color-light: #F5F5F5;
-    --background-color-azure: rgb(230, 250, 252);
-    --background-color-black: #0B555B;
-    --light-green: rgb(156, 252, 151);
-    --dark-green: #086303;
-    --sage-green: rgb(107, 163, 104);
-    --dark-sage-green: #304C2F;
-    --olive-leaf: rgb(81, 91, 58);
-    --light-olive-leaf: #F6F7F3;
-    --charcoal-brown: rgb(53, 61, 47);
-    --light-charcoal-brown: #D4E6B5;
-}
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 .technology-card {
     background-color: var(--background-color-azure);
@@ -47,7 +26,9 @@
 }
 
 .description {
+    /* color: var(--grey-text); */
     color: var(--black);
+    font-weight: bold;
     margin-top: 10px;
     font-size: 0.95em;
 }
@@ -57,4 +38,15 @@
     font-size: 0.9em;
     font-style: italic;
     font-weight: lighter;
+}
+
+.status-not-started {
+    color: var(--red-text);
+    /* color: red; */
+}
+.status-in-progress {
+    color: var(--orange-text);
+}
+.status-completed {
+    color: var(--dark-green);
 }
