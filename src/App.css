@@ -34,7 +34,7 @@ html, body {
 
 .container {
     max-width:inherit;
-    margin-top: 2cm;
+    /* margin-top: 2cm; */
 }
 /* .App {
     /* min-width: 1200px; */

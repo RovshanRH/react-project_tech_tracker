@@ -80,7 +80,7 @@ function ProgressHeader(props: { AllCount: number; FinishedCount: number }) {
                         {formatProgress(displayedProgress)}%
                     </div>
                 </div>
-                <p className="progress-subtitle">Finished Technologies/Total Technologies</p>
+                <p className="progress-subtitle">Finished Technologies / Total Technologies</p>
                 
                 {/* Индикатор выполнения */}
                 <div className="progress-indicators">

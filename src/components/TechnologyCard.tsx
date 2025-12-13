@@ -1,15 +1,35 @@
-import './TechnologyCard.css'
+import './TechnologyCard.css';
 
-function TechnologyCard(props: {key: number; title: string; description: string, status: string}) {
+interface TechnologyCardProps {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  onStatusChange: () => void; // Добавляем проп для функции изменения статуса
+}
 
-    return (
-        <div className="technology-card">
-            <div className="KeyId">{props.key}</div>
-            <div className='technology-name'>{props.title}</div>
-            <div className="description">{props.description}</div>
-            <div className={`status status-${props.status}`}>{props.status}</div>          
-        </div>
-    )
+function TechnologyCard({ 
+  id, 
+  title, 
+  description, 
+  status,
+  onStatusChange 
+}: TechnologyCardProps) {
+
+
+  return (
+    <div className={`technology-card technology-card--${status}`}>
+      <div className="KeyId">ID: {id}</div>
+      <div className='technology-name'>{title}</div>
+      <div className="description">{description}</div>
+      <div 
+        className={`btn status status-${status}`} 
+        onClick={onStatusChange}
+      >
+        {status}
+      </div>          
+    </div>
+  );
 }
 
 export default TechnologyCard;
