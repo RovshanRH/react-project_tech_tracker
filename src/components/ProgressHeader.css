@@ -219,6 +219,9 @@
 .indicator.remaining {
     color: #e74c3c;
 }
+.indicator.in-progress {
+    color: var(--orange-text);
+}
 
 .indicator-dot {
     width: 12px;
@@ -235,6 +238,12 @@
 .indicator.remaining .indicator-dot {
     background: #e74c3c;
     box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+}
+
+.indicator.in-progress .indicator-dot {
+    background-color: var(--orange-text);
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+
 }
 
 .indicator:hover .indicator-dot {

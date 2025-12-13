@@ -53,7 +53,9 @@ function App() {
       <h1>Technology Tracker</h1>
       <ProgressHeader 
         AllCount={technologies.length} 
-        FinishedCount={technologies.filter(tech => tech.status === 'completed').length} 
+        NotStarted = {technologies.filter(tech => tech.status === 'not-started').length}
+        FinishedCount={technologies.filter(tech => tech.status === 'completed').length}
+        InProgress={technologies.filter(tech => tech.status === 'in-progress').length} 
       />
       
       {technologies.map((tech) => (
