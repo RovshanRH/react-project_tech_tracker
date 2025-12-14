@@ -43,7 +43,6 @@
 .btn-eraseAll:active,
 .btn-randomTech:active {
   transform: scale(1.1);
-  border-color: #007bff;
   border-width: 3px; 
 }
 

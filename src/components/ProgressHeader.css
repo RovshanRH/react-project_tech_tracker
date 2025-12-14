@@ -231,8 +231,8 @@
 }
 
 .indicator.completed .indicator-dot {
-    background: var(--completed-color);
-    box-shadow: 0 0 8px rgba(8, 99, 3, 0.3);
+    background: var(--sage-green);
+    box-shadow: 0 0 8px rgba(66, 255, 56, 0.3);
 }
 
 .indicator.remaining .indicator-dot {
