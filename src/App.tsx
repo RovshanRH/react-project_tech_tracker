@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import TechnologyCard from "./components/TechnologyCard.tsx";
 import ProgressHeader from "./components/ProgressHeader.tsx";
 import QuickActions from "./components/QuickActions.tsx";
+// import { jsx } from "react/jsx-runtime";
 
 function App() {
   type Technology = {
@@ -11,31 +12,47 @@ function App() {
     description: string;
     status: "completed" | "in-progress" | "not-started";
     category: string;
+    notes: string;
   };
+  const [technologies, setTechnologies] = useState<Technology[]>(() => {
+    const saved = localStorage.getItem("techTrackerData");
+    if (saved) {
+      console.log("Данные загружены из localStorage");
+      return JSON.parse(saved);
+    }
+    // Демо-данные только если в localStorage ничего нет
+    return [
+      {
+        id: 1,
+        title: "React Components",
+        description: "Изучение базовых компонентов",
+        status: "completed",
+        category: "frontend",
+        notes: "",
+      },
+      {
+        id: 2,
+        title: "JSX Syntax",
+        description: "Освоение синтаксиса JSX",
+        status: "in-progress",
+        category: "React",
+        notes: "",
+      },
+      {
+        id: 3,
+        title: "State Management",
+        description: "Работа с состоянием компонентов",
+        status: "not-started",
+        category: "React",
+        notes: "",
+      },
+    ];
+  });
 
-  const [technologies, setTechnologies] = useState<Technology[]>([
-    {
-      id: 1,
-      title: "React Components",
-      description: "Изучение базовых компонентов",
-      status: "completed",
-      category: "frontend",
-    },
-    {
-      id: 2,
-      title: "JSX Syntax",
-      description: "Освоение синтаксиса JSX",
-      status: "in-progress",
-      category: "React",
-    },
-    {
-      id: 3,
-      title: "State Management",
-      description: "Работа с состоянием компонентов",
-      status: "not-started",
-      category: "React",
-    },
-  ]);
+  useEffect(() => {
+    localStorage.setItem("techTrackerData", JSON.stringify(technologies));
+    console.log("Данные сохранены в localStorage");
+  }, [technologies]);
 
   // Функция для изменения статуса технологии
   const updateTechnologyStatus = (id: number) => {
@@ -151,7 +168,8 @@ function App() {
         });
         break;
 
-      case "not-started": { // Скрыть все, потом показать только "not-started"
+      case "not-started": {
+        // Скрыть все, потом показать только "not-started"
         allCards.forEach((card) => {
           card.classList.add("hidden"); // Сначала скрываем все
         });

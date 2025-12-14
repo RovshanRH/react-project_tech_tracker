@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './QuickActions.css';
 import checkAllIcon from "../assets/svg/check-all.svg";
 import EraseAllIcon from "../assets/svg/erase-all.svg";
