@@ -48,6 +48,12 @@
     font-size: 0.95em;
 }
 
+.category {
+    color: var(--glow-color);
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
 .btn {
     border-color: var(--grey-text);
     border: 1px solid;

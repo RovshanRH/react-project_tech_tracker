@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import './ProgressHeader.css';
 
-function ProgressHeader(props: { AllCount: number; FinishedCount: number; InProgress: number; NotStarted:number }) {
+function ProgressHeader(props: { AllCount: number; FinishedCount: number; InProgress: number; NotStarted:number; PopularCategory: string }) {
     const [displayedProgress, setDisplayedProgress] = useState(0);
     const prevProgressRef = useRef(0);
     
@@ -88,20 +88,21 @@ function ProgressHeader(props: { AllCount: number; FinishedCount: number; InProg
                         <div className="indicator-dot"></div>
                         <span>Completed: {props.FinishedCount}</span>
                     </div>
-                    <div className="indicator remaining">
-                        <div className="indicator-dot"></div>
-                        <span>Remaining: {props.NotStarted}</span>
-                    </div>
                     <div className="indicator in-progress">
                         <div className="indicator-dot"></div>
                         <span>Progressing: {props.InProgress}</span>
                     </div>
+                    <div className="indicator remaining">
+                        <div className="indicator-dot"></div>
+                        <span>Remaining: {props.NotStarted}</span>
+                    </div>
+                    
                 </div>
                 <div className="popular">
                     <div className="description">
-                        The most popular category:
+                        The most popular <span style={{color: 'var(--dark-green)'}}>category</span>:
                         <div className="category-card">
-
+                            <div className="category-name">{props.PopularCategory === "" ? "-" : props.PopularCategory }</div>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ interface TechnologyCardProps {
   title: string;
   description: string;
   status: string;
+  category: string;
   onStatusChange: () => void; // Добавляем проп для функции изменения статуса
 }
 
@@ -13,6 +14,7 @@ function TechnologyCard({
   title, 
   description, 
   status,
+  category,
   onStatusChange 
 }: TechnologyCardProps) {
 
@@ -22,6 +24,7 @@ function TechnologyCard({
       <div className="KeyId">ID: {id}</div>
       <div className='technology-name'>{title}</div>
       <div className="description">{description}</div>
+      <div className="category"><span style={{fontWeight: 'bold'}}>Category</span>: {category}</div>
       <div 
         className={`btn status status-${status}`} 
         onClick={onStatusChange}
