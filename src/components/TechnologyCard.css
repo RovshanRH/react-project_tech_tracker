@@ -28,6 +28,11 @@
     transform: scale(1.1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
+
+.technology-card.hidden {
+    display: none !important;
+}
+
 .KeyId {
     font-size: 0.8em;
     color: var(--charcoal-brown);
