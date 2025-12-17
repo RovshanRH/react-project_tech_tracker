@@ -122,3 +122,4 @@ export const defaultTechnologies: Technology[] = [
       notes: "",
     },
   ];
+  

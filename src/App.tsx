@@ -3,8 +3,9 @@ import "./App.css";
 import TechnologyCard from "./components/TechnologyCard.tsx";
 import ProgressHeader from "./components/ProgressHeader.tsx";
 import QuickActions from "./components/QuickActions.tsx";
+import { QuerySearch } from './components/QuerySearch.tsx';
 import type { Technology } from "./types/technolgies.ts";
-import { useTechnologies } from "./hooks/useTEchnologies.ts";
+import { useTechnologies } from "./hooks/useTechnologies.ts";
 
 // import { jsx } from "react/jsx-runtime";
 
@@ -58,9 +59,9 @@ function App() {
   }
 
 
-  const notesChange = () => {
+  // const HandleNotesChange = () => {
 
-  }
+  // }
 
   return (
     <div className="App">
@@ -78,6 +79,7 @@ function App() {
         }
         PopularCategory={findMaxPopularCategory(technologies) ?? ""}
       />
+      <QuerySearch />
       <QuickActions
         onCheckAll={checkAll}
         onEraseAll={eraseAll}
@@ -94,7 +96,6 @@ function App() {
           category={tech.category}
           notes={tech.notes}
           onStatusChange={() => updateTechnologyStatus(tech.id)}
-          onNotesChange={() => notesChange()}
         />
       ))}
     </div>

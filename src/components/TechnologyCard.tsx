@@ -9,7 +9,6 @@ interface TechnologyCardProps {
   category: string;
   notes: string;
   onStatusChange: () => void;
-  onNotesChange: () => void;
 }
 
 function TechnologyCard({ 
@@ -20,7 +19,6 @@ function TechnologyCard({
   category,
   // notes,
   onStatusChange,
-  onNotesChange
 }: TechnologyCardProps) {
 
 
@@ -36,7 +34,7 @@ function TechnologyCard({
       >
         {status}
       </div>    
-      <div className="btn-notes" title='Take Notes' onClick={onNotesChange}>
+      <div className="btn-notes" title='Take Notes' >
           <img src={WriteIcon} alt="Notes" width={25} height={25}/>
       </div>      
     </div>
