@@ -1,4 +1,5 @@
 import './TechnologyCard.css';
+import WriteIcon from '../assets/svg/write.svg'
 
 interface TechnologyCardProps {
   id: number;
@@ -6,7 +7,9 @@ interface TechnologyCardProps {
   description: string;
   status: string;
   category: string;
-  onStatusChange: () => void; // Добавляем проп для функции изменения статуса
+  notes: string;
+  onStatusChange: () => void;
+  onNotesChange: () => void;
 }
 
 function TechnologyCard({ 
@@ -15,7 +18,9 @@ function TechnologyCard({
   description, 
   status,
   category,
-  onStatusChange 
+  // notes,
+  onStatusChange,
+  onNotesChange
 }: TechnologyCardProps) {
 
 
@@ -30,7 +35,10 @@ function TechnologyCard({
         onClick={onStatusChange}
       >
         {status}
-      </div>          
+      </div>    
+      <div className="btn-notes" title='Take Notes' onClick={onNotesChange}>
+          <img src={WriteIcon} alt="Notes" width={25} height={25}/>
+      </div>      
     </div>
   );
 }

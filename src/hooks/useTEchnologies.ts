@@ -2,12 +2,24 @@
 
 import { useEffect, useState } from "react";
 import type { Technology } from "../types/technolgies";
+import { defaultTechnologies } from "../data/technologiesList";
 
 export function useTechnologies() {
+  
+
   const [technologies, setTechnologies] = useState<Technology[]>(() => {
     const saved = localStorage.getItem("techTrackerData");
-    return saved ? JSON.parse(saved) : [];
-  }); // загрузка при каждом рендере
+
+    if (saved) {
+      try {
+        return JSON.parse(saved) as Technology[];
+      } catch {
+        return defaultTechnologies;
+      }
+    }
+
+    return defaultTechnologies;
+  }); // загрузка 1 раз
 
   useEffect(() => {
     localStorage.setItem("techTrackerData", JSON.stringify(technologies));
@@ -38,9 +50,7 @@ export function useTechnologies() {
   };
 
   const checkAll = () =>
-    setTechnologies((prev) =>
-      prev.map((t) => ({ ...t, status: "completed" }))
-    );
+    setTechnologies((prev) => prev.map((t) => ({ ...t, status: "completed" })));
 
   const eraseAll = () =>
     setTechnologies((prev) =>
@@ -48,13 +58,10 @@ export function useTechnologies() {
     );
 
   const randomChoice = () => {
-    const candidates = technologies.filter(
-      (t) => t.status === "not-started"
-    );
+    const candidates = technologies.filter((t) => t.status === "not-started");
     if (!candidates.length) return;
 
-    const random =
-      candidates[Math.floor(Math.random() * candidates.length)];
+    const random = candidates[Math.floor(Math.random() * candidates.length)];
 
     updateTechnologyStatus(random.id);
   };
@@ -66,9 +73,5 @@ export function useTechnologies() {
     checkAll,
     eraseAll,
     randomChoice,
-
-  } //передал список технологий, функцию обновления и дальнейший функционал по заданиям
-
-
-
+  }; //передал список технологий, функцию обновления и дальнейший функционал по заданиям
 }

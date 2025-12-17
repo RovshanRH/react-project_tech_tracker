@@ -1,182 +1,40 @@
-import { useEffect, useState } from "react";
+import {useState, useMemo} from 'react'
 import "./App.css";
 import TechnologyCard from "./components/TechnologyCard.tsx";
 import ProgressHeader from "./components/ProgressHeader.tsx";
 import QuickActions from "./components/QuickActions.tsx";
+import type { Technology } from "./types/technolgies.ts";
+import { useTechnologies } from "./hooks/useTEchnologies.ts";
+
 // import { jsx } from "react/jsx-runtime";
 
 function App() {
-  type Technology = {
-    id: number;
-    title: string;
-    description: string;
-    status: "completed" | "in-progress" | "not-started";
-    category: string;
-    notes: string;
-  };
-  const [technologies, setTechnologies] = useState<Technology[]>(() => {
-    const saved = localStorage.getItem("techTrackerData");
-    if (saved) {
-      console.log("Данные загружены из localStorage");
-      return JSON.parse(saved);
-    }
-    // Демо-данные только если в localStorage ничего нет
-    return [
-      {
-        id: 1,
-        title: "React Components",
-        description: "Изучение базовых компонентов",
-        status: "completed",
-        category: "frontend",
-        notes: "",
-      },
-      {
-        id: 2,
-        title: "JSX Syntax",
-        description: "Освоение синтаксиса JSX",
-        status: "in-progress",
-        category: "React",
-        notes: "",
-      },
-      {
-        id: 3,
-        title: "State Management",
-        description: "Работа с состоянием компонентов",
-        status: "not-started",
-        category: "React",
-        notes: "",
-      },
-      {
-        id: 4,
-        title: "TypeScript Basics",
-        description: "Основы TypeScript для React",
-        status: "completed",
-        category: "TypeScript",
-        notes: "",
-      },
-      {
-        id: 5,
-        title: "React Hooks",
-        description: "Изучение useState, useEffect, useContext",
-        status: "in-progress",
-        category: "React",
-        notes: "",
-      },
-      {
-        id: 6,
-        title: "CSS Grid & Flexbox",
-        description: "Современные техники вёрстки",
-        status: "completed",
-        category: "CSS",
-        notes: "",
-      },
-      {
-        id: 7,
-        title: "Next.js Framework",
-        description: "Изучение фреймворка Next.js",
-        status: "not-started",
-        category: "frameworks",
-        notes: "",
-      },
-      {
-        id: 8,
-        title: "Redux Toolkit",
-        description: "Управление состоянием приложения",
-        status: "in-progress",
-        category: "state-management",
-        notes: "",
-      },
-      {
-        id: 9,
-        title: "GraphQL & Apollo",
-        description: "Работа с GraphQL API",
-        status: "not-started",
-        category: "backend",
-        notes: "",
-      },
-      {
-        id: 10,
-        title: "Unit Testing",
-        description: "Тестирование с Jest и React Testing Library",
-        status: "in-progress",
-        category: "testing",
-        notes: "",
-      },
-      {
-        id: 11,
-        title: "Webpack Configuration",
-        description: "Настройка сборщика проектов",
-        status: "not-started",
-        category: "build-tools",
-        notes: "",
-      },
-      {
-        id: 12,
-        title: "React Router",
-        description: "Маршрутизация в React-приложениях",
-        status: "completed",
-        category: "React",
-        notes: "",
-      },
-      {
-        id: 13,
-        title: "Tailwind CSS",
-        description: "Утилитарный CSS фреймворк",
-        status: "in-progress",
-        category: "CSS",
-        notes: "",
-      },
-      {
-        id: 14,
-        title: "Node.js Basics",
-        description: "Основы серверного JavaScript",
-        status: "completed",
-        category: "backend",
-        notes: "",
-      },
-      {
-        id: 15,
-        title: "Docker для разработки",
-        description: "Контейнеризация приложений",
-        status: "not-started",
-        category: "devops",
-        notes: "",
-      },
-    ];
-  });
+  
+  const {
+    technologies,
+    updateTechnologyStatus,
+    checkAll,
+    eraseAll,
+    randomChoice,
+  } = useTechnologies();
 
-  useEffect(() => {
-    localStorage.setItem("techTrackerData", JSON.stringify(technologies));
-    console.log("Данные сохранены в localStorage");
-  }, [technologies]);
+  type FilterStatus = "all" | "not-started" | "in-progress" | "completed";
 
-  // Функция для изменения статуса технологии
-  const updateTechnologyStatus = (id: number) => {
-    setTechnologies((prevTechnologies) =>
-      prevTechnologies.map((tech) => {
-        if (tech.id === id) {
-          // Определяем следующий статус в цикле
-          const statusOrder = [
-            "not-started",
-            "in-progress",
-            "completed",
-          ] as const;
-          const currentIndex = statusOrder.indexOf(tech.status);
-          const nextIndex = (currentIndex + 1) % statusOrder.length;
+  const [FilterStatus, setFilterStatus] = useState<FilterStatus>("all");
 
-          return {
-            ...tech,
-            status: statusOrder[nextIndex],
-          };
-        }
-        return tech;
-      })
+
+  const handleFilterChange = (filter: string) => {
+    setFilterStatus(filter as FilterStatus)
+  }
+  
+  const filteredTechnologies = useMemo(() => {
+    if (FilterStatus === "all") return technologies;
+    
+    return technologies.filter(
+      (tech) => tech.status === FilterStatus
     );
-  };
-
-  console.log("App component is rendering!");
-  console.log("Technologies:", technologies);
-
+  }, [technologies, FilterStatus]);
+  
   function findMaxPopularCategory(tech: Technology[] | null | undefined) {
     if (tech == null) return undefined;
 
@@ -199,101 +57,9 @@ function App() {
     return maxCategory;
   }
 
-  function checkAll() {
-    technologies.map((tech) => {
-      setTechnologies((prevTechnologies) =>
-        prevTechnologies.map((tech) => {
-          return {
-            ...tech,
-            status: "completed",
-          };
-        })
-      );
-      return tech;
-    });
-  }
-  function eraseAll() {
-    technologies.map((tech) => {
-      setTechnologies((prevTechnologies) =>
-        prevTechnologies.map((tech) => {
-          return {
-            ...tech,
-            status: "not-started",
-          };
-        })
-      );
-      return tech;
-    });
-  }
-  function randomChoice() {
-    const notStartedTechs = technologies.filter(
-      (tech) => tech.status === "not-started"
-    );
-    if (notStartedTechs.length === 0) {
-      alert("Невозможно выбрать технологию  для изучения");
-      return;
-    }
-    let TechId: number;
 
-    if (notStartedTechs.length === 1) {
-      // Если всего одна технология, берем ее ID
-      TechId = notStartedTechs[0].id;
-    } else {
-      // Генерируем случайный индекс от 0 до длины массива-1
-      const randomIndex = Math.floor(Math.random() * notStartedTechs.length);
-      // Получаем ID случайно выбранной технологии
-      TechId = notStartedTechs[randomIndex].id;
-    }
+  const notesChange = () => {
 
-    // 4. Обновляем статус выбранной технологии
-    setTechnologies((prevTechnologies) =>
-      prevTechnologies.map((tech) =>
-        tech.id === TechId ? { ...tech, status: "in-progress" } : tech
-      )
-    );
-  }
-  // Вариант 1: Используем CSS классы для скрытия
-  function filter(choice: string) {
-    const allCards = document.querySelectorAll(".technology-card");
-
-    switch (choice) {
-      case "all":
-        // Показать все карточки
-        allCards.forEach((card) => {
-          card.classList.remove("hidden"); // Убираем класс скрытия
-        });
-        break;
-
-      case "not-started": {
-        // Скрыть все, потом показать только "not-started"
-        allCards.forEach((card) => {
-          card.classList.add("hidden"); // Сначала скрываем все
-        });
-
-        // Находим и показываем карточки со статусом "not-started"
-        const notStartedCards = document.querySelectorAll(
-          ".technology-card--not-started"
-        );
-        notStartedCards.forEach((card) => {
-          card.classList.remove("hidden");
-        });
-        break;
-      }
-
-      case "in-progress":
-        allCards.forEach((card) => card.classList.add("hidden"));
-        document
-          .querySelectorAll(".technology-card--in-progress")
-          .forEach((card) => card.classList.remove("hidden"));
-        break;
-
-      case "completed":
-        allCards.forEach((card) => card.classList.add("hidden"));
-        document
-          .querySelectorAll(".technology-card--completed")
-          .forEach((card) => card.classList.remove("hidden"));
-        break;
-    }
   }
 
   return (
@@ -316,9 +82,9 @@ function App() {
         onCheckAll={checkAll}
         onEraseAll={eraseAll}
         onRandomChoice={randomChoice}
-        onFilterChange={filter}
+        onFilterChange={handleFilterChange}
       />
-      {technologies.map((tech) => (
+      {filteredTechnologies.map((tech) => (
         <TechnologyCard
           key={tech.id}
           id={tech.id}
@@ -326,7 +92,9 @@ function App() {
           description={tech.description}
           status={tech.status}
           category={tech.category}
-          onStatusChange={() => updateTechnologyStatus(tech.id)} // Передаем функцию
+          notes={tech.notes}
+          onStatusChange={() => updateTechnologyStatus(tech.id)}
+          onNotesChange={() => notesChange()}
         />
       ))}
     </div>

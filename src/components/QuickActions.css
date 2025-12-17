@@ -109,17 +109,17 @@
 }
 
 .dropdown-item:hover {
-  background: #f0f8ff;
+  background: var(--very-light-green);
 }
 
 .dropdown-item.selected {
-  background: #e8f4ff;
-  color: #007bff;
+  background: var(--light-green);
+  color: var(--dark-green);
   font-weight: 500;
 }
 
 .checkmark {
-  color: #007bff;
+  color: var(--dark-green);
   font-weight: bold;
 }
 
