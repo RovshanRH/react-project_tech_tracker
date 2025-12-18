@@ -1,0 +1,23 @@
+{
+  "roadmap": {
+    "name": "backend",
+    "items": [
+      {
+        "id": 1101,
+        "title": "Node.js Basics",
+        "description": "npm, модули, http",
+        "status": "not-started",
+        "category": "backend",
+        "notes": ""
+      },
+      {
+        "id": 1102,
+        "title": "Databases Fundamentals",
+        "description": "SQL/NoSQL основы",
+        "status": "not-started",
+        "category": "backend",
+        "notes": ""
+      }
+    ]
+  }
+}
